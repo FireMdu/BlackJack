@@ -25,7 +25,7 @@ class Player:
         """Place total amount to bet
 
         :param amount: betting amount
-        :type amount: float
+        :type amount: int
         :raise Exception: betting amount should be greater than available
         balance.
         """
