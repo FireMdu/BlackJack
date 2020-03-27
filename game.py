@@ -81,16 +81,19 @@ class Chip:
 
 class Card:
     """Card class"""
-    pass
+    CARDS_dict = {
+        'numerics': arange(2, 11), 'aces': array(['A']), 'faces':
+            array(['k', 'Q', 'J']), 'suites': array(['Spades', 'Hearts',
+                                                     'Diamonds', 'Clubs'])
+    }
 
 
-class Deck:
+class Deck(Card):
     """ """
-    CARDS_dict = {'numerics': arange(2, 11), 'aces': array(['A']), 'faces':
-        array(['k', 'Q', 'J']), 'suites': array(['Spades', 'Hearts',
-                                                      'Diamonds', 'Clubs'])}
+
 
     def __init__(self, num_decks=6):
+        Card.__init__(self)
         self.deck = []
         self.cards = []
         self.num_decks = num_decks
@@ -100,9 +103,9 @@ class Deck:
 
         # combine all card types
         self.cards = concatenate([value for key, value in
-                                   self.CARDS_dict.items() if key !='suites'])
+                                   Card.CARDS_dict.items() if key !='suites'])
         # form a deck object
-        self.deck = product(self.cards, self.CARDS_dict['suites'])
+        self.deck = product(self.cards, Card.CARDS_dict['suites'])
 
         return list(self.deck)
 
