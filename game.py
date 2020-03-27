@@ -5,6 +5,9 @@ The rules have been dumbed down for ease of coding the game: More
 functionality to be added in the future.
 """
 import pdb
+from numpy import arange, array, concatenate
+from itertools import product
+from random import shuffle
 
 
 class Player:
@@ -77,15 +80,47 @@ class Chip:
 
 
 class Card:
-    """ """
+    """Card class"""
     pass
 
+
+class Deck:
+    """ """
+    CARDS_dict = {'numerics': arange(2, 11), 'aces': array(['A']), 'faces':
+        array(['k', 'Q', 'J']), 'suites': array(['Spades', 'Hearts',
+                                                      'Diamonds', 'Clubs'])}
+
+    def __init__(self, num_decks=6):
+        self.deck = []
+        self.cards = []
+        self.num_decks = num_decks
+
+    def make_deck(self):
+        """ Make a 52 card deck"""
+
+        # combine all card types
+        self.cards = concatenate([value for key, value in
+                                   self.CARDS_dict.items() if key !='suites'])
+        # form a deck object
+        self.deck = product(self.cards, self.CARDS_dict['suites'])
+
+        return list(self.deck)
+
+    def shuffle_game_deck(self):
+        game_deck = self.make_deck() * self.num_decks
+        # shuffle game deck in place
+        shuffle(game_deck)
+        return game_deck
+
+    def set_deck(self):
+        # set game deck
+        return self.shuffle_game_deck()
 
 class Dealer:
     """ """
     pass
 
 if __name__ == '__main__':
-    pdb.set_trace()
-    Person = Player('Mdu')
-    print(Person.balance)
+    #pdb.set_trace()
+    Deck = Deck().set_deck()
+    print(Deck)
